@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    let storage = TodoStorage()
     @State private var todos: [TodoItem] = []
     @State private var newTodoText: String = ""
     
@@ -40,6 +41,9 @@ struct ContentView: View {
                     .onDelete(perform: deleteTodo)
                 }
             }
+            .onAppear{
+                todos = storage.load()
+            }
             .navigationTitle("To-Do List")
         }
     }
@@ -48,15 +52,18 @@ struct ContentView: View {
         guard !newTodoText.isEmpty else { return }
         todos.append(TodoItem(title: newTodoText))
         newTodoText = ""
+        storage.save(todos)
     }
     private func toggleTodo(_ todo: TodoItem){
         if let index = todos.firstIndex(where: { $0.id == todo.id }){
             todos[index].isDone.toggle()
+            storage.save(todos)
             
         }
     }
     private func deleteTodo(at offsets: IndexSet){
         todos.remove(atOffsets: offsets)
+        storage.save(todos)
     }
 }
 
