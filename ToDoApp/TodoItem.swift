@@ -11,10 +11,12 @@ struct TodoItem: Identifiable, Codable {
     let id: UUID
     var title: String
     var isDone: Bool = false
+    var category: Category
     
-    init(id: UUID = UUID(), title: String, isDone: Bool = false) {
+    init(id: UUID = UUID(), title: String, isDone: Bool = false, category: Category = .other) {
         self.id = id
         self.title = title
         self.isDone = isDone
+        self.category = category
     }
 }
