@@ -12,11 +12,14 @@ struct TodoItem: Identifiable, Codable {
     var title: String
     var isDone: Bool = false
     var category: Category
+    var dueDate: Date
     
-    init(id: UUID = UUID(), title: String, isDone: Bool = false, category: Category = .other) {
+    init(id: UUID = UUID(), title: String, isDone: Bool = false, category: Category = .other, dueDate: Date = Date()) {
         self.id = id
         self.title = title
         self.isDone = isDone
         self.category = category
+        self.dueDate = dueDate
     }
+    
 }
